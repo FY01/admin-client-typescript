@@ -5,7 +5,7 @@
  * @Author: FY01
  * @Date: 2022-01-13 14:52:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-01-13 16:02:27
+ * @LastEditTime: 2022-01-13 20:04:29
  */
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
@@ -42,11 +42,27 @@ const LoginForm = () => {
         rules={[
           {
             required: true,
+            whitespace: true,
             message: 'Please input your username!',
+          },
+          {
+            min: 4,
+            message: "username's length must >= 4",
+          },
+          {
+            max: 12,
+            message: "username's length must =< 12",
+          },
+          {
+            pattern: /^[0-9a-zA-Z_]+$/,
+            message: 'legal letter: 0-9,a-Z or _ ',
           },
         ]}
       >
-        <Input prefix={<UserOutlined className="site-form-item-icon" />} />
+        <Input
+          prefix={<UserOutlined className="site-form-item-icon" />}
+          placeholder="please inter your username"
+        />
       </Form.Item>
 
       <Form.Item
@@ -55,12 +71,26 @@ const LoginForm = () => {
         rules={[
           {
             required: true,
+            whitespace: true,
             message: 'Please input your password!',
+          },
+          {
+            min: 4,
+            message: "password's length must >= 8",
+          },
+          {
+            max: 12,
+            message: "password's length must =< 12",
+          },
+          {
+            pattern: /^[0-9a-zA-Z_]+$/,
+            message: 'legal letter: 0-9,a-Z or _ ',
           },
         ]}
       >
         <Input.Password
           prefix={<LockOutlined className="site-form-item-icon" />}
+          placeholder="please inter your password"
         />
       </Form.Item>
 
