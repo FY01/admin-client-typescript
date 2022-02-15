@@ -5,16 +5,23 @@
  * @Author: FY01
  * @Date: 2022-01-13 14:52:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-01-13 20:04:29
+ * @LastEditTime: 2022-02-15 21:54:28
  */
 import { Form, Input, Button } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
+import { reqLogin } from '@@/src/api'
+
 import './index.less'
 
+interface loginData {
+  username: string
+  password: string
+}
 const LoginForm = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values)
+  const onFinish = async (values: loginData) => {
+    const result = await reqLogin(values.username, values.password)
+    console.log(result)
   }
 
   const onFinishFailed = (errorInfo: any) => {
@@ -39,6 +46,7 @@ const LoginForm = () => {
       <Form.Item
         label="Username"
         name="username"
+        initialValue="admin"
         rules={[
           {
             required: true,
