@@ -5,7 +5,7 @@
  * @Author: FY01
  * @Date: 2022-02-15 16:27:55
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-02-15 21:55:47
+ * @LastEditTime: 2022-02-15 22:09:54
  */
 
 import axios from 'axios'
@@ -15,7 +15,7 @@ export default function ajax(
   url: string,
   data: { [propName: string]: string } = {},
   method: string = 'GET',
-): Promise<unknown> {
+): any {
   return new Promise((resolve, reject) => {
     let promise
     if (method === 'GET' || method === 'get') {
@@ -25,11 +25,13 @@ export default function ajax(
     } else {
       promise = axios.post(url, data)
     }
-    // 如果请求成功
+
     promise
+      // request successful
       .then((value) => {
         resolve(value)
       })
+      // request failure
       .catch((error) => {
         message.error('请求失败了:' + error)
       })

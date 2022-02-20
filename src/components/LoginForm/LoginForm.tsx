@@ -5,23 +5,35 @@
  * @Author: FY01
  * @Date: 2022-01-13 14:52:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-02-15 21:54:28
+ * @LastEditTime: 2022-02-15 22:40:09
  */
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
 import { reqLogin } from '@@/src/api'
 
 import './index.less'
+import { ReactComponentElement } from 'react'
 
 interface loginData {
   username: string
   password: string
 }
-const LoginForm = () => {
+
+type LoginFormType = {
+  props: any
+}
+const LoginForm: React.FC<LoginFormType> = (props) => {
   const onFinish = async (values: loginData) => {
     const result = await reqLogin(values.username, values.password)
-    console.log(result)
+    const { data } = result
+    // login successful
+    if (data.status === 0) {
+      console.log(props)
+      // login failure
+    } else {
+      message.error(data.msg)
+    }
   }
 
   const onFinishFailed = (errorInfo: any) => {
